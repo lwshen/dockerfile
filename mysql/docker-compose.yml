@@ -18,7 +18,6 @@ services:
       - MYSQL_ROOT_HOST=${MYSQL_ROOT_HOST}
 
   phpmyadmin:
-    container_name: phpmyadmin
     image: phpmyadmin
     restart: always
     ports:
