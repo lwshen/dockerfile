@@ -1,0 +1,50 @@
+version: '2'
+
+services:
+  db:
+    image: mariadb:10.5
+    environment:
+      MYSQL_ROOT_PASSWORD: filerun
+      MYSQL_USER: filerun
+      MYSQL_PASSWORD: filerun
+      MYSQL_DATABASE: filerun
+    volumes:
+      - ./data/db:/var/lib/mysql
+    restart: always
+
+  web:
+    image: filerun/filerun
+    environment:
+      FR_DB_HOST: db
+      FR_DB_PORT: 3306
+      FR_DB_NAME: filerun
+      FR_DB_USER: filerun
+      FR_DB_PASS: filerun
+      APACHE_RUN_USER: www-data
+      APACHE_RUN_USER_ID: 1000
+      APACHE_RUN_GROUP: www-data
+      APACHE_RUN_GROUP_ID: 1000
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - "8085:80"
+    volumes:
+      - ./data/html:/var/www/html
+      - ./data/user-files:/user-files
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - "8086:80"
+    expose:
+      - "8086"
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: filerun
+    restart: always
+    depends_on:
+      - db
