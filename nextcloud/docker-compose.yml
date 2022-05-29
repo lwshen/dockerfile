@@ -53,7 +53,6 @@ services:
       - redis
 
   phpmyadmin:
-    container_name: phpmyadmin
     image: phpmyadmin
     ports:
       - "8084:80"
