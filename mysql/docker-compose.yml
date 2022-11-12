@@ -32,6 +32,7 @@ services:
   backup:
     image: databack/mysql-backup
     restart: always
+    user: "0"
     volumes:
      - ${DB_BACKUP_DIR}:/db
     environment:

@@ -66,6 +66,7 @@ services:
   backup:
     image: databack/mysql-backup
     restart: always
+    user: "0"
     volumes:
      - ./data/db-backup:/db
     environment:
