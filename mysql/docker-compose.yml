@@ -28,3 +28,17 @@ services:
       PMA_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     depends_on:
       - db
+
+  backup:
+    image: databack/mysql-backup
+    restart: always
+    volumes:
+     - ${DB_BACKUP_DIR}:/db
+    environment:
+     - DB_DUMP_TARGET=/db
+     - DB_USER=root
+     - DB_PASS=${MYSQL_ROOT_PASSWORD}
+     - DB_DUMP_FREQ=60
+     - DB_SERVER=db
+    depends_on:
+      - db
