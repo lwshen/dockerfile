@@ -1,0 +1,26 @@
+version: "3.9"
+volumes:
+  pg_db_vol:
+    driver: local
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: zaq12wsx
+      POSTGRES_DB: test
+    ports:
+      - 5432:5432
+    volumes:
+      - pg_db_vol:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - 8088:80
