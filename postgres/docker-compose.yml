@@ -4,14 +4,14 @@ volumes:
     driver: local
 services:
   postgres:
-    image: postgres
+    image: postgres:${POSTGRES_VERSION}
     restart: always
     environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: zaq12wsx
-      POSTGRES_DB: test
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
     ports:
-      - 5432:5432
+      - ${POSTGRES_PORT}:5432
     volumes:
       - pg_db_vol:/var/lib/postgresql/data
   pgadmin:
